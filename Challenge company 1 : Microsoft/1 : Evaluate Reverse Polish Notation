@@ -1,0 +1,51 @@
+// 1 : Evaluate Reverse Polish Notation
+// Problem : https://leetcode.com/problems/evaluate-reverse-polish-notation/
+
+class Solution {
+public:
+    bool isOperator(string op)
+    {
+        if(op=="+" || op=="-" || op=="*" || op=="/")
+            return true;
+        return false;
+    }
+    int compute(int value_1, int value_2, string op)
+    {
+        if(op=="+")
+            return (value_1+value_2);
+        if(op=="-")
+            return value_1-value_2;
+        if(op=="*")
+            return value_1*value_2;
+        return value_1/value_2;
+    }
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st;
+        int value_1, value_2;
+
+        for(auto token:tokens)
+        {
+            if(isOperator(token))
+            {
+                if(st.size()>1)
+                {
+                    value_2 = st.top();
+                    st.pop();
+                    value_1 = st.top();
+                    st.pop();
+                    int temp_res = compute(value_1, value_2, token);
+                    st.push(temp_res);
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                st.push(stoi(token));
+            }
+        }
+        return st.top();
+    }
+};
