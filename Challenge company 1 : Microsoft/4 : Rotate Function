@@ -1,0 +1,23 @@
+// 4 : Rotate Function
+// Problem : https://leetcode.com/problems/rotate-function/submissions/
+class Solution {
+public:
+    int maxRotateFunction(vector<int>& nums) {
+        int n=nums.size();
+        int res=0;
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            sum+=nums[i];
+            res+=(i*nums[i]);
+        }
+        int prev=res;
+        for(int i=n-1;i>=1;i--)
+        {
+            int temp = prev + sum - (n*nums[i]);
+            prev=temp;
+            res=max(res, temp);
+        }
+        return res;
+    }
+};
