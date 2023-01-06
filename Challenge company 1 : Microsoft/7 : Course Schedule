@@ -1,0 +1,41 @@
+// 7 : Course Schedule
+// Problem : https://leetcode.com/problems/course-schedule/
+class Solution {
+public:
+    bool canFinish(int n, vector<vector<int>>& pre)
+    {
+        vector<int> adj[n];
+        vector<int> my[n];
+        for(int i=0;i<pre.size();i++)
+        {
+            my[pre[i][1]].push_back(pre[i][0]);
+            adj[pre[i][0]].push_back(pre[i][1]);
+        }
+        vector<int> in(n);
+        queue<int> q;
+        for(int i=0;i<n;i++)
+        {
+            in[i]=adj[i].size();
+            if(in[i]==0)
+                q.push(i);
+        }
+        int count=0;
+        while(q.empty()==false)
+        {
+            int top=q.front();
+            q.pop();
+            count++;
+            for(auto x:my[top])
+            {
+                in[x]--;
+                if(in[x]==0)
+                {
+                    q.push(x);
+                }
+            }
+        }
+        if(count==n)
+            return true;
+        return false;
+    }
+};
