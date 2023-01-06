@@ -1,0 +1,30 @@
+// 2 : Combination Sum III
+// Problem : https://leetcode.com/problems/combination-sum-iii/
+class Solution {
+public:
+    void solve(vector<vector<int>> &res, vector<int> temp, int index, int curr_num, int n, int k, int sum)
+    {
+        if(sum==n && index==k)
+        {
+            res.push_back(temp);
+            return;
+        }
+        if(index==k || sum>n || curr_num>9)
+        {
+            return;
+        }
+        if(curr_num<=n)
+        {
+            temp.push_back(curr_num);
+            solve(res, temp, index+1, curr_num+1, n, k, sum+curr_num);
+            temp.pop_back();
+        }
+        solve(res, temp, index, curr_num+1, n, k, sum);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> res;
+        vector<int> temp;
+        solve(res, temp, 0, 1, n, k, 0);
+        return res;
+    }
+};
