@@ -1,0 +1,12 @@
+// 13 : Airplane Seat Assignment Probability
+// Problem : https://leetcode.com/problems/airplane-seat-assignment-probability/
+class Solution {
+public:
+    double nthPersonGetsNthSeat(int n)
+    {
+        // If seat is 1, then it goes to correct person
+        if(n==1)
+            return 1.0;
+        return 0.5;
+    }
+};
