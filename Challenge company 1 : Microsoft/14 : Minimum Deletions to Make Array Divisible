@@ -1,0 +1,58 @@
+// Solution 1
+// 14 : Minimum Deletions to Make Array Divisible
+// Problem : https://leetcode.com/problems/minimum-deletions-to-make-array-divisible/
+// Time : O(N^2)
+class Solution {
+public:
+    bool isDivisible(vector<int> &numsDivide, int num)
+    {
+        for(auto x:numsDivide)
+        {
+            if(x%num!=0)
+                return false;
+        }
+        return true;
+    }
+    int minOperations(vector<int>& nums, vector<int>& numsDivide)
+    {
+        map<int, int> mp;
+        for(auto num:nums)
+        {
+            mp[num]++;
+        }
+        int res=0;
+        for(auto x:mp)
+        {
+            if(isDivisible(numsDivide, x.first))
+            {
+                return res;
+            }
+            res+=x.second;
+        }
+        return -1;
+    }
+};
+
+// Solution :2
+// 14 : Minimum Deletions to Make Array Divisible
+// Problem : https://leetcode.com/problems/minimum-deletions-to-make-array-divisible/
+// Time : O(NlogN)
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide)
+    {
+        int gcd=0;
+        for(auto num:numsDivide)
+        {
+            gcd = __gcd(num, gcd);
+        }
+        sort(nums.begin(), nums.end());
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            if(gcd%nums[i]==0)
+                return i;
+        }
+        return -1;
+    }
+};
