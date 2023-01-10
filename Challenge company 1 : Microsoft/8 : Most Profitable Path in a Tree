@@ -1,0 +1,79 @@
+// 8 : Most Profitable Path in a Tree
+// Problem : https://leetcode.com/problems/most-profitable-path-in-a-tree/
+class Solution {
+public:
+    void bobPath(int curr, int bob, vector<int> adj[], vector<bool> &vis, vector<int> &temp, vector<int> &bob_path)
+    {
+        temp.push_back(curr);
+        if(vis[curr]==false && curr==bob)
+        {
+            bob_path=temp;
+            return;
+        }
+        vis[curr]=true;
+        for(auto node:adj[curr])
+        {
+            if(vis[node]==false)
+            {
+                bobPath(node, bob, adj, vis, temp, bob_path);
+            }
+        }
+        temp.pop_back();
+    }
+    void result(int curr, int &profit, int &res, vector<int> adj[], vector<bool> &vis, vector<int> &amount)
+    {
+        vis[curr]=true;
+        profit+=amount[curr];
+        if(curr && adj[curr].size()==1)
+        {
+            res=max(res, profit);
+        }
+        for(auto node:adj[curr])
+        {
+            if(vis[node]==false)
+            {
+                result(node, profit, res, adj, vis, amount);
+            }
+        }
+        profit-=amount[curr];
+    }
+    int mostProfitablePath(vector<vector<int>>& edges, int bob, vector<int>& amount)
+    {
+        int n=amount.size();
+        vector<int> adj[n];
+        for(auto edge:edges)
+        {
+            int u=edge[0];
+            int v=edge[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        vector<int> bob_path;
+        vector<int> temp;
+        vector<bool> vis(n, false);
+        bobPath(0, bob, adj, vis, temp, bob_path);
+        int size=bob_path.size();
+        int start;
+        if(size%2==1)
+        {
+            amount[bob_path[size/2]]/=2;
+            start=size/2+1;
+        }
+        else
+        {
+            start=size/2;
+        }
+        for(int i=start;i<size;i++)
+        {
+            amount[bob_path[i]]=0;
+        }
+        for(int i=0;i<n;i++)
+        {
+            vis[i]=false;
+        }
+        int res=INT_MIN;
+        int profit=0;
+        result(0, profit, res, adj, vis, amount);
+        return res;
+    }
+};
