@@ -1,0 +1,33 @@
+// 10 : Shortest Unsorted Continuous Subarray
+// Problem : https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums)
+    {
+        vector<int> sorted = nums;
+        sort(sorted.begin(), sorted.end());
+        int n=nums.size();
+        int start=0;
+        int end=n-1;
+        bool set_start=false;
+        bool set_end=false;
+        for(int i=0;i<n;i++)
+        {
+            if(set_start && set_end)
+            {
+                return end-start+1;
+            }
+            if(nums[i] != sorted[i] && set_start == false)
+            {
+                set_start = true;
+                start = i;
+            }
+            if(nums[n-i-1] != sorted[n-i-1] && set_end == false)
+            {
+                set_end = true;
+                end = n-i-1;
+            }
+        }
+        return 0;
+    }
+};
