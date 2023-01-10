@@ -1,0 +1,40 @@
+// 4 : Number of Boomerangs
+// Problem : https://leetcode.com/problems/number-of-boomerangs/
+class Solution {
+public:
+    int dist(vector<int> &p1, vector<int> &p2)
+    {
+        return (pow(p1[0]-p2[0],2)+pow(p1[1]-p2[1],2));
+    }
+    int fac(int n)
+    {
+        if(n==1||n==0)
+            return 1;
+        return n*fac(n-1);
+    }
+    int numberOfBoomerangs(vector<vector<int>>& points)
+    {
+        int res=0;
+        int n=points.size();
+        for(int i=0;i<n;i++)
+        {
+            unordered_map<int,int> mp;
+            for(int j=0;j<n;j++)
+            {
+                if(i!=j)
+                {
+                    int dist_=dist(points[i], points[j]);
+                    mp[dist_]++;
+                }
+            }
+            for(auto x:mp)
+            {
+                if(x.second>=2)
+                {
+                    res+=(fac(x.second)/fac(x.second-2));
+                }
+            }
+        }
+        return res;
+    }
+};
