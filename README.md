@@ -19,3 +19,22 @@
   <li><a href="https://leetcode.com/problems/minimum-deletions-to-make-array-divisible/">Deletions to make an array divisible.</a></li>
   <li><a href="https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/">Substrings containing all three Characters</a></li>
 </ol>
+
+### Challenge Company 2 : Goldman Sachs
+<ol>
+  <li><a href="https://leetcode.com/problems/max-points-on-a-line/">Max Points on a Line</a></li>
+  <li><a href="https://leetcode.com/problems/valid-square/">Valid Square</a></li>
+  <li><a href="https://leetcode.com/problems/factorial-trailing-zeroes/">Factorial with Trailing Zeroes</a></li>
+  <li><a href="https://leetcode.com/problems/number-of-boomerangs/">Number of Boomerangs (Similar to peacocks question)</a></li>
+  <li><a href="https://leetcode.com/problems/split-array-into-consecutive-subsequences/">Split Array into Sequences</a></li>
+  <li><a href="https://leetcode.com/problems/minimum-consecutive-cards-to-pick-up/">Minimum Consecutive Cards to pick up</a></li>
+  <li><a href="https://leetcode.com/problems/count-good-triplets-in-an-array/">Count Good Triplets in Array (Profits in a Startup Question)</a></li>
+  <li><a href="https://leetcode.com/problems/maximum-points-in-an-archery-competition/">Maximum Points in Archery Competition</a></li>
+  <li><a href="https://leetcode.com/problems/ipo/">Initial Public Offering</a></li>
+  <li><a href="https://leetcode.com/problems/number-of-people-aware-of-a-secret/">People and Secret</a></li>
+  <li><a href="https://leetcode.com/problems/invalid-transactions/">Invalid Transactions in an EMI</a></li>
+  <li><a href="https://leetcode.com/problems/all-elements-in-two-binary-search-trees/">All elements of a binary Search Tree</a></li>
+  <li><a href="https://leetcode.com/problems/get-biggest-three-rhombus-sums-in-a-grid/">Rhombus Sums in a GRID</a></li>
+  <li><a href="https://leetcode.com/problems/count-nice-pairs-in-an-array/">Nice Pairs in Array (OTT Platforms and John)</a></li>
+  <li><a href="https://leetcode.com/problems/maximum-good-people-based-on-statements/">Good People based on Statements</a></li>
+</ol>
