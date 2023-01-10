@@ -1,0 +1,48 @@
+// 11 : Number of Ways to Arrive at Destination
+// Problem : https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+typedef long long ll;
+class Solution {
+public:
+    int countPaths(int n, vector<vector<int>>& roads)
+    {
+        int mod=1e9+7;
+        vector<vector<pair<int, int>>> adj(n, vector<pair<int,int>>());
+        for(auto road:roads)
+        {
+            int u=road[0];
+            int v=road[1];
+            int wt=road[2];
+            adj[u].push_back({v,wt});
+            adj[v].push_back({u,wt});
+        }
+        vector<ll> dist(n, LONG_MAX);
+        priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;
+        pq.push({0, 0});
+        dist[0]=0;
+        vector<int> ways(n, 0);
+        ways[0]=1;
+        while(pq.empty()==false)
+        {
+            int node = pq.top().second;
+            ll time = pq.top().first;
+            pq.pop();
+            for(auto adj_node:adj[node])
+            {
+                int v=adj_node.first;
+                ll addn_time=adj_node.second;
+                if(dist[v]>time+addn_time)
+                {
+                    dist[v]=time+addn_time;
+                    pq.push({dist[v], v});
+                    ways[v]=ways[node]%mod;
+                }
+                else if(dist[v]==time+addn_time)
+                {
+                    ways[v]+=ways[node];
+                    ways[v]%=mod;
+                }
+            }
+        }
+        return ways[n-1]%mod;
+    }
+};
