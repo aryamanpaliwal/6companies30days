@@ -1,0 +1,39 @@
+// 8 : Maximum Points in an Archery Competition
+// Problem : https://leetcode.com/problems/maximum-points-in-an-archery-competition/
+class Solution {
+public:
+    void solve(int i, int numArrows, vector<int> &aliceArrows, int sum, int &last, vector<int> &res, vector<int> &temp)
+    {
+        if(numArrows==0 || (i<0 && numArrows>=0))
+        {
+            if(sum>last)
+            {
+                for(int j=0;j<=11;j++)
+                {
+                    cout<<temp[j]<<" ";
+                    res[j]=temp[j];
+                }
+                res[0]+=numArrows;
+                last=sum;
+            }
+            return;
+        }
+        if(i<0 || numArrows<0)
+            return;
+        if(numArrows>=aliceArrows[i])
+        {
+            temp[i]=aliceArrows[i]+1;
+            // cout<<temp[i]<<endl;
+            solve(i-1, numArrows-aliceArrows[i]-1, aliceArrows, sum+i, last, res, temp);
+            temp[i]=0;
+        }
+        solve(i-1, numArrows, aliceArrows, sum, last, res, temp);
+    }
+    vector<int> maximumBobPoints(int numArrows, vector<int>& aliceArrows) {
+        vector<int> res(12);
+        vector<int> temp(12);
+        int last=INT_MIN;
+        solve(11, numArrows, aliceArrows, 0, last, res, temp);
+        return res;
+    }
+};
