@@ -1,0 +1,78 @@
+// 7 : Count Good Triplets in an Array
+// Problem : https://leetcode.com/problems/count-good-triplets-in-an-array/
+class Solution {
+public:
+    struct SegmentTree
+    {
+        vector <int> t;
+        void Initialize (int n)
+        {
+            t.assign(4*n + 1, 0);
+        }
+        void Update (int i, int x, int v, int tl, int tr)
+        {
+            if(tl==tr)
+                t[v]+=x;
+            else
+            {
+                int tm=(tl+tr)/2;
+                if(i <= tm)
+                    Update(i, x, 2*v + 1, tl, tm);
+                else
+                    Update(i, x, 2*v + 2, tm + 1, tr);
+                t[v] = t[2*v + 1] + t[2*v + 2];
+            }
+        }
+
+        int Sum (int l, int r, int v, int tl, int tr)
+        {
+            if(l > r)
+                return 0;
+            if(tl == l && tr == r)
+                return t[v];
+            else
+            {
+                int tm=(tl+tr)/2;
+                if(r <= tm)
+                    return Sum(l, r, 2*v + 1, tl, tm);
+                else if(l > tm)
+                    return Sum(l, r, 2*v + 2, tm + 1, tr);
+                else
+                    return Sum(l, tm, 2*v + 1, tl, tm)+Sum(tm + 1, r, 2*v + 2, tm + 1, tr);
+            }
+        }
+    };
+
+    long long goodTriplets(vector<int>& nums1, vector<int>& nums2)
+    {
+        int n = nums1.size();
+        vector<int> pos(n);
+        for(int i=0;i<n;i++)
+        {
+            pos[nums2[i]]=i;
+        }
+        SegmentTree segT;
+        segT.Initialize(n);
+        vector<int> pre(n);
+        vector<int> suff(n);
+        for(int i=0;i<n;i++)
+        {
+            int curr_pos = pos[nums1[i]];
+            pre[i] = segT.Sum(0, curr_pos-1, 0, 0, n-1);
+            segT.Update(curr_pos, 1, 0, 0, n-1);
+        }
+        segT.Initialize(n);
+        for(int i=n-1;i>=0;i--)
+        {
+            int curr_pos = pos[nums1[i]];
+            suff[i] = segT.Sum(curr_pos+1, n-1, 0, 0, n-1);
+            segT.Update(curr_pos, 1, 0, 0, n-1);
+        }
+        long long res=0;
+        for(int i=0;i<n;i++)
+        {
+            res+=(long long)(pre[i]*1LL*suff[i]);
+        }
+        return res;
+    }
+};
