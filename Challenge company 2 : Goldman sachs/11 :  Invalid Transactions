@@ -1,0 +1,68 @@
+// 11 :  Invalid Transactions
+// Problem : https://leetcode.com/problems/invalid-transactions/
+class Solution {
+public:
+    vector<string> invalidTransactions(vector<string>& trans) {
+        int n=trans.size();
+        vector<bool> invalid(n, false);
+        vector<string> name(n);
+        vector<int> time(n);
+        vector<int> amt(n);
+        vector<string> city(n);
+        for(int i=0;i<n;i++)
+        {
+            string temp=trans[i];
+            temp.push_back(',');
+            int j=0;
+            string temp2="";
+            while(temp[j++]!=',')
+            {
+                temp2.push_back(temp[j-1]);
+            }
+            name[i]=temp2;
+            temp2="";
+            while(temp[j++]!=',')
+            {
+                temp2.push_back(temp[j-1]);
+            }
+            time[i]=stoi(temp2);
+            temp2="";
+            while(temp[j++]!=',')
+            {
+                temp2.push_back(temp[j-1]);
+            }
+            amt[i]=stoi(temp2);
+            if(amt[i]>1000)
+                invalid[i]=true;
+            temp2="";
+            while(temp[j++]!=',')
+            {
+                temp2.push_back(temp[j-1]);
+            }
+            city[i]=temp2;
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(i!=j)
+                {
+                    if(name[i]==name[j] && city[i]!=city[j] && abs(time[i]-time[j])<=60)
+                    {
+                        invalid[i]=true;
+                        invalid[j]=true;
+                    }
+                }
+            }
+        }
+
+        vector<string> res;
+        for(int i=0;i<n;i++)
+        {
+            if(invalid[i])
+                res.push_back(trans[i]);
+        }
+        return res;
+    }
+};
