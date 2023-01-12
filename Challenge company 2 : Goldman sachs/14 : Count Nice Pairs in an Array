@@ -1,0 +1,36 @@
+// 14 : Count Nice Pairs in an Array
+// Problem : https://leetcode.com/problems/count-nice-pairs-in-an-array/
+typedef long long ll;
+class Solution {
+public:
+    int mod=1e9+7;
+    int rev(int n)
+    {
+        int res=0;
+        while(n>0)
+        {
+            res=((res*10)+(n%10));
+            n=n/10;
+        }
+        return res;
+    }
+    int countNicePairs(vector<int>& nums)
+    {
+        long long res=0;
+        int n=nums.size();
+        unordered_map<int, int> mp;
+        for(int i=0;i<n;i++)
+        {
+            nums[i]-=rev(nums[i]);
+            mp[nums[i]]++;
+        }
+        for(auto x:mp)
+        {
+            if(x.second>1)
+            {
+                res+=((ll)x.second*((ll)x.second-1))/2;
+            }
+        }
+        return res%mod;
+    }
+};
