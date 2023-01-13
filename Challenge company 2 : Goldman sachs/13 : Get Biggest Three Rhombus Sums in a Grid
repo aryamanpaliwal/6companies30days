@@ -1,0 +1,57 @@
+// 13 : Get Biggest Three Rhombus Sums in a Grid
+// Problem : https://leetcode.com/problems/get-biggest-three-rhombus-sums-in-a-grid/
+class Solution {
+public:
+    vector<int> getBiggestThree(vector<vector<int>>& grid)
+    {
+        int n=grid.size();
+        int m=grid[0].size();
+        priority_queue<int> pq;
+        for(int len=1;len<=min(n,m);len+=2)
+        {
+            for(int i=0;i+len<=n;i++)
+            {
+                for(int j=0;j+len<=m;j++)
+                {
+                    int dis=len/2;
+                    if(dis==0)
+                    {
+                        pq.push(grid[i][j]);
+                    }
+                    else
+                    {
+                        int temp=0;
+                        int x=i;
+                        int y=dis+j;
+                        for(int k=0;k<dis;k++)
+                        {
+                            temp+=grid[x++][y++];
+                        }
+                        for(int k=0;k<dis;k++)
+                        {
+                            temp+=grid[x++][y--];
+                        }
+                        for(int k=0;k<dis;k++)
+                        {
+                            temp+=grid[x--][y--];
+                        }
+                        for(int k=0;k<dis;k++)
+                        {
+                            temp+=grid[x--][y++];
+                        }
+                        pq.push(temp);
+                    }
+                }
+            }
+        }
+        vector<int> res;
+        while(pq.empty()==false)
+        {
+            int temp=pq.top();
+            pq.pop();
+            if(res.size()<3 && (res.size()==0 || res.back()!=temp))
+                res.push_back(temp);
+        }
+        return res;
+    }
+};
