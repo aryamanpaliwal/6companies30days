@@ -1,0 +1,42 @@
+// 15 : Maximum Good People Based on Statements
+// Problem : https://leetcode.com/problems/maximum-good-people-based-on-statements/
+class Solution {
+public:
+    bool check(vector<vector<int>>& statements, string temp)
+    {
+        int n=statements.size();
+        for(int i=0;i<n;i++)
+        {
+            if(temp[i]!='1')
+                continue;
+            for(int j=0;j<n;j++)
+            {
+                if(statements[i][j]!=2 && statements[i][j]!=temp[j]-'0')
+                    return false;
+            }
+        }
+        return true;
+    }
+    void solve(vector<vector<int>>& statements, int &res, int temp_res, string &temp, int idx)
+    {
+        if(idx==statements.size())
+        {
+            if(check(statements, temp))
+                res=max(res, temp_res);
+            return;
+        }
+        temp.push_back('0');
+        solve(statements,res,temp_res,temp,idx+1);
+        temp.back()='1';
+        solve(statements,res,temp_res+1,temp,idx+1);
+        temp.pop_back();
+    }
+    int maximumGood(vector<vector<int>>& statements)
+    {
+        int n=statements.size();
+        int res=0;
+        string temp="";
+        solve(statements, res, 0, temp, 0);
+        return res;
+    }
+};
