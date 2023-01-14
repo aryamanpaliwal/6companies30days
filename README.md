@@ -39,7 +39,7 @@
   <li><a href="https://leetcode.com/problems/maximum-good-people-based-on-statements/">Good People based on Statements</a></li>
 </ol>
 
-### Challenge Company 2 : Adobe
+### Challenge Company 3 : Adobe
 <ol>
   <li><a href="https://leetcode.com/problems/fraction-to-recurring-decimal/">Fraction to a recurring Decimal</a></li>
   <li><a href="https://leetcode.com/problems/increasing-triplet-subsequence/">Increasing Triplet Sequence</a></li>
