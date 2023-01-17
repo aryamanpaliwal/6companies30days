@@ -1,0 +1,44 @@
+// 11 : Stock Price Fluctuation
+// Problem : https://leetcode.com/problems/stock-price-fluctuation/
+class StockPrice {
+public:
+    unordered_map<int,int> sprice;
+    priority_queue<pair<int,int>> maxi;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> mini;
+    int current_time;
+    StockPrice() {
+        current_time=0;
+    }
+    
+    void update(int timestamp, int price) {
+        sprice[timestamp]=price;
+        current_time=max(timestamp,current_time);
+        mini.push({price,timestamp});
+        maxi.push({price,timestamp});
+        while(sprice[maxi.top().second]!=maxi.top().first)
+            maxi.pop();
+        while(sprice[mini.top().second]!=mini.top().first)
+            mini.pop();
+    }
+    
+    int current() {
+        return sprice[current_time];
+    }
+    
+    int maximum() {
+        return maxi.top().first;
+    }
+    
+    int minimum() {
+        return mini.top().first;
+    }
+};
+
+/**
+ * Your StockPrice object will be instantiated and called as such:
+ * StockPrice* obj = new StockPrice();
+ * obj->update(timestamp,price);
+ * int param_2 = obj->current();
+ * int param_3 = obj->maximum();
+ * int param_4 = obj->minimum();
+ */
