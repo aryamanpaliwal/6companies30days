@@ -1,0 +1,28 @@
+// 3 : K-th Smallest in Lexicographical Order
+// Problem : https://leetcode.com/problems/k-th-smallest-in-lexicographical-order/
+typedef long long int lli;
+class Solution {
+public:
+    int findKthNumber(int n, int k) {
+        int res=1;
+        while(k>1)
+        {
+            lli step=0;
+            for(lli d=1,c=res;c<=n;c*=10,d*=10)
+            {
+                step+=min(d, n-c+1);
+            }
+            if(k>step)
+            {
+                k-=step;
+                res++;
+            }
+            else
+            {
+                k--;
+                res*=10;
+            }
+        }
+        return res;
+    }
+};
