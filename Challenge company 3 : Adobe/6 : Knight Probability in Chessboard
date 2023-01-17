@@ -1,0 +1,39 @@
+// 6 : Knight Probability in Chessboard
+// Problem : https://leetcode.com/problems/knight-probability-in-chessboard/
+class Solution {
+public:
+    double knightProbability(int n, int k, int row, int column) {
+        vector<vector<double>> prob(n, vector<double>(n, 0.0));
+	    vector<pair<int,int>> dirs({{1,-2},{-1,-2},{-2,-1},{+2,-1},{-2,1},{2,1},{-1,2},{1,2}});
+	    prob[row][column]=1.0;
+        for(;k>0;k--)
+        {
+            vector<vector<double>> temp(n, vector<double>(n, 0.0));
+            for(int i=0;i<n;i++)
+            {
+                for(int j=0;j<n;j++)
+                {
+                    for(auto x:dirs)
+                    {
+                        int ri=i+x.first;
+                        int ci=j+x.second;
+                        if(ri>=0 && ci>=0 && ri<n && ci<n)
+                        {
+                            temp[ri][ci]+=prob[i][j]/8.0;
+                        }
+                    }
+                }
+            }
+            prob=temp;
+        }
+        double res=0.0;
+        for(auto x:prob)
+        {
+            for(auto y:x)
+            {
+                res+=y;
+            }
+        }
+        return res;
+    }
+};
