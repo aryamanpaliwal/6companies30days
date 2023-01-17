@@ -1,0 +1,37 @@
+// 4 : Magical String
+// Problem : https://leetcode.com/problems/magical-string/
+class Solution {
+public:
+    int magicalString(int n)
+    {
+        string temp="122";
+        int res=1;
+        int i=2;
+        while(i<n && temp.size()<n)
+        {
+            if(temp[i]=='1')
+            {
+                res++;
+                if(temp[temp.length()-1]=='2')
+                    temp+="1";
+                else
+                    temp+="2";
+            }
+            else
+            {
+                if(temp[temp.length()-1]=='2')
+                    temp+="11";
+                else
+                    temp+="22";
+            }
+            i++;
+        }
+        while(i<n)
+        {
+            if(temp[i]=='1')
+                res++;
+            i++;
+        }
+        return res;
+    }
+};
